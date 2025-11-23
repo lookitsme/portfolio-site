@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   //   console.log('focused on', e.target);
   // });
 
-  const title = 'Bryant Smith, Creative Dev';
+  const title = 'Able Gurung, Software Engineer';
   const description = 'I help awesome designers (like you) build their wildest dreams.';
   const url = 'https://bryantcodes.art';
 

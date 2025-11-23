@@ -59,7 +59,7 @@ export const Slides = ({
             className="text-[max(1.5em,16px)]"
             tabIndex={scene === 'menu' ? 0 : -1}
           >
-            ABOUT_BRYANT
+            ABOUT_ABLE
           </TerminalButton>
         </div>
       </div>
