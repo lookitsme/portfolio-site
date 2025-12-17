@@ -4,8 +4,8 @@
     "name": "ablegurung-portfolio"
   },
   "api": {
-    "projectId": "0ttnaq4a",
-    "dataset": "dev"
+    "projectId": "a5t2nuxu",
+    "dataset": "production"
   },
   "plugins": [
     "@sanity/base",
@@ -13,7 +13,6 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "@sanity/code-input",
-    "tags",
     "@sanity/color-input",
     "seo-pane"
   ],
