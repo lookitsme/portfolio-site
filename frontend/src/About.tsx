@@ -78,7 +78,7 @@ export const Slides = ({
         `}
         >
           <TextWindow
-            title="BRYANT_SMITH.exe"
+            title="ABLE_GURUNG.exe"
             className={`
             relative self-baseline
             ${breakpoints.about ? '' : `
@@ -118,7 +118,7 @@ export const Slides = ({
             ${slide === 'mission' ? '' : 'translate-x-[20%] translate-y-[70%]'}
           `}
             srcs={[selfPortraitImage]}
-            alts={['Crayon illustration of Bryant from decades ago.']}
+            alts={['Crayon illustration of Able from decades ago.']}
           />
         </div>
       )}

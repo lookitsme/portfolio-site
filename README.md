@@ -3,11 +3,11 @@ Fork away, reverse engineer, have a blast, reach out to me with questions!
 
 But. Please do not just replace the content (e.g. with your crypto marketing) and republish the site as your own.  I wish I were joking, but this has happened twice. That I know of.
 
-# bryantcodes.art
+# ablegurung.com
 
-Hello! This is my portfolio site [bryantcodes.art](https://bryantcodes.art). It is a wild work in progress (currently barely at an MVP stage) and also my safe place to experiment with new things I wanna try. Examine the code if you dare. Ha! I'm slowly going through and commenting/cleaning things I hastily created. There are actually a few novel solutions lurking in there that I'm proud of--maybe future blog posts!
+Hello! This is my portfolio site [ablegurung.com](https://ablegurung.com). It is a wild work in progress (currently barely at an MVP stage) and also my safe place to experiment with new things I wanna try. Examine the code if you dare. Ha! I'm slowly going through and commenting/cleaning things I hastily created. There are actually a few novel solutions lurking in there that I'm proud of--maybe future blog posts!
 
-Want to know how any particular thing was acheived? You should [write me](mailto:hello@bryantcodes.art) because I love nerding out about this stuff and my gf and dog are honestly sick of hearing about it.
+Want to know how any particular thing was acheived? You should [write me](mailto:hello@ablegurung.com) because I love nerding out about this stuff and my gf and dog are honestly sick of hearing about it.
 
 # Great libraries you should try
 

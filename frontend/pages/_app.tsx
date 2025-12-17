@@ -25,14 +25,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const title = 'Able Gurung, Software Engineer';
   const description = 'I help awesome designers (like you) build their wildest dreams.';
-  const url = 'https://bryantcodes.art';
+  const url = 'https://ablegurung.com.np';
 
   return (
     <>
       <DefaultSeo
         title={title}
         description={description}
-        canonical="https://bryantcodes.art"
+        canonical="https://ablegurung.com.np"
         openGraph={{
           url,
           title,
@@ -40,17 +40,17 @@ function MyApp({ Component, pageProps }: AppProps) {
           type: 'website',
           images: [
             {
-              url: 'https://bryantcodes.art/images/social.png',
+              url: 'https://ablegurung.com.np/images/social.png',
               width: 2333,
               height: 1313,
-              alt: 'Bryantcodes.art wordmark over colorful, crudely scribbled illustration of laptop displaying another crudely drawn illustration of a laptop.',
+              alt: 'Ablegurung.com wordmark over colorful, crudely scribbled illustration of laptop displaying another crudely drawn illustration of a laptop.',
               type: 'image/png',
             },
           ],
-          site_name: 'bryantcodes.art',
+          site_name: 'ablegurung.com.np',
         }}
         twitter={{
-          handle: '@bryantcodesart',
+          handle: '@ablegurung',
           cardType: 'summary_large_image',
         }}
       />
