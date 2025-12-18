@@ -2,6 +2,7 @@ import React from 'react';
 import { Color } from 'three';
 import squiggle1Points from './lines/squiggle1';
 import squiggleCirclePoints from './lines/squiggleCircle';
+import ableSquigglePoints from './lines/ableSquiggle';
 import { Scribble } from './Scribble';
 import { CoordArray } from './CoordArray';
 import { useTrueAfterDelay } from './useTrueAfterDelay';

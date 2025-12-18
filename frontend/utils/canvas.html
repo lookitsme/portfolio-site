@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  min-height: 100vh;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+.canvas-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+  color: #00ff00;
+  margin-bottom: 10px;
+  font-size: 28px;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+.instructions {
+  text-align: center;
+  color: #888;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+#c {
+  border: 3px solid #00ff00;
+  background: #0f0f1e;
+  cursor: crosshair;
+  display: block;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  border-radius: 8px;
+  position: relative;
+}
+#c::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+#c::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.controls {
+  text-align: center;
+  margin-bottom: 15px;
+}
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 6px;
+  color: #000;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
+}
+button:active {
+  transform: translateY(0);
+}
+.info {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #00ff00;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.info-label {
+  color: #888;
+}
+.info-value {
+  color: #00ff00;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>✏️ 3D Line Drawer</h1>
+  <div class="instructions">
+    Click and drag to draw your custom line. Coordinates are normalized to [0,1] range.<br>
+    Center of canvas = center of 3D space. Edges represent the bounds.
+  </div>
+  <div class="canvas-wrapper">
+    <canvas id="c" width="800" height="800"></canvas>
+  </div>
+  <div class="controls">
+    <button onclick="toggleMirrorX()" id="mirrorXBtn">↔️ Mirror X: OFF</button>
+    <button onclick="toggleMirrorY()" id="mirrorYBtn">↕️ Mirror Y: OFF</button>
+    <button onclick="clearCanvas()">🗑️ Clear Canvas</button>
+    <button onclick="exportCoords()">📋 Export Coordinates</button>
+  </div>
+  <div class="info">
+    <div class="info-row">
+      <span class="info-label">Points captured:</span>
+      <span class="info-value"><span id="count">0</span></span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Mirror X (horizontal flip):</span>
+      <span class="info-value" id="mirrorXStatus">OFF</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Mirror Y (vertical flip):</span>
+      <span class="info-value" id="mirrorYStatus">OFF</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Output file:</span>
+      <span class="info-value">frontend/src/lines/ableSquiggle.ts</span>
+    </div>
+  </div>
+</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const points = [];
+const countEl = document.getElementById('count');
+const mirrorXBtn = document.getElementById('mirrorXBtn');
+const mirrorYBtn = document.getElementById('mirrorYBtn');
+const mirrorXStatus = document.getElementById('mirrorXStatus');
+const mirrorYStatus = document.getElementById('mirrorYStatus');
+
+let isDrawing = false;
+let lastPoint = null;
+let mirrorX = false;
+let mirrorY = false;
+
+function toggleMirrorX() {
+  mirrorX = !mirrorX;
+  mirrorXBtn.textContent = mirrorX ? '↔️ Mirror X: ON' : '↔️ Mirror X: OFF';
+  mirrorXBtn.style.background = mirrorX ? 'linear-gradient(135deg, #ff00ff 0%, #cc00cc 100%)' : 'linear-gradient(135deg, #00ff00 0%, #00cc00 100%)';
+  mirrorXStatus.textContent = mirrorX ? 'ON' : 'OFF';
+  mirrorXStatus.style.color = mirrorX ? '#ff00ff' : '#00ff00';
+}
+
+function toggleMirrorY() {
+  mirrorY = !mirrorY;
+  mirrorYBtn.textContent = mirrorY ? '↕️ Mirror Y: ON' : '↕️ Mirror Y: OFF';
+  mirrorYBtn.style.background = mirrorY ? 'linear-gradient(135deg, #ff00ff 0%, #cc00cc 100%)' : 'linear-gradient(135deg, #00ff00 0%, #00cc00 100%)';
+  mirrorYStatus.textContent = mirrorY ? 'ON' : 'OFF';
+  mirrorYStatus.style.color = mirrorY ? '#ff00ff' : '#00ff00';
+}
+
+canvas.addEventListener('mousedown', (e) => {
+  isDrawing = true;
+  lastPoint = { x: e.offsetX, y: e.offsetY };
+});
+
+canvas.addEventListener('mouseup', () => {
+  isDrawing = false;
+  lastPoint = null;
+});
+
+canvas.addEventListener('mouseleave', () => {
+  isDrawing = false;
+  lastPoint = null;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (isDrawing) {
+    const currentX = e.offsetX;
+    const currentY = e.offsetY;
+    
+    // Normalize coordinates to [0, 1] range
+    // Center the coordinates around 0.5 (center of canvas)
+    let x = currentX / canvas.width;
+    let y = currentY / canvas.height;
+    
+    // Apply mirroring
+    if (mirrorX) x = 1 - x;
+    if (mirrorY) y = 1 - y;
+    
+    points.push([x.toFixed(4), y.toFixed(4), 0]);
+    
+    // Draw line from last point to current
+    if (lastPoint) {
+      ctx.strokeStyle = '#00ff00';
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(lastPoint.x, lastPoint.y);
+      ctx.lineTo(currentX, currentY);
+      ctx.stroke();
+    }
+    
+    // Draw dot at current point
+    ctx.fillStyle = '#00ff00';
+    ctx.fillRect(currentX - 3, currentY - 3, 6, 6);
+    
+    lastPoint = { x: currentX, y: currentY };
+    countEl.textContent = points.length;
+  }
+});
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  points.length = 0;
+  lastPoint = null;
+  countEl.textContent = 0;
+}
+
+function exportCoords() {
+  if (points.length === 0) {
+    alert('Draw something first!');
+    return;
+  }
+  const output = 'export default ' + JSON.stringify(points, null, 2);
+  console.log(output);
+  console.log(`\nFirst point: [${points[0][0]}, ${points[0][1]}]`);
+  console.log(`Last point: [${points[points.length-1][0]}, ${points[points.length-1][1]}]`);
+  console.log(`Mirror X: ${mirrorX ? 'ON' : 'OFF'}`);
+  console.log(`Mirror Y: ${mirrorY ? 'ON' : 'OFF'}`);
+  console.log('\nThe line will render with the selected mirroring applied.');
+  
+  // Copy to clipboard
+  navigator.clipboard.writeText(output);
+  alert(`✅ ${points.length} coordinates copied!\n\nMirror X: ${mirrorX ? 'ON' : 'OFF'}\nMirror Y: ${mirrorY ? 'ON' : 'OFF'}\n\nPaste into: frontend/src/lines/ableSquiggle.ts`);
+}
+</script>
+</body>
+</html>
