@@ -9,7 +9,7 @@ Hello! This is my portfolio site [ablegurung.com](https://ablegurung.com). It is
 
 Want to know how any particular thing was acheived? You should [write me](mailto:hello@ablegurung.com) because I love nerding out about this stuff and my gf and dog are honestly sick of hearing about it.
 
-# Great libraries you should try
+# Great libraries you should try!
 
 In no particular order, here are some cool things I found and liked:
 
